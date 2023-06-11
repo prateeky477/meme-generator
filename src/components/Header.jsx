@@ -20,7 +20,7 @@ const Header = () => {
       >
         <Image src={logo} alt="Logo" height={12} borderRadius='full' />
         <a
-          href="https://github.com/prateeky477"
+          href="https://github.com/prateeky477/meme-generator"
           target="_blank"
           rel="noopener noreferrer"
         >
