@@ -8,7 +8,7 @@ import {
   Checkbox,
   Flex,
   FormLabel,
-  useBreakpointValue
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { ImgContext } from "../context/imageContext";
 import { fabric } from "fabric";
@@ -62,7 +62,7 @@ const Home = () => {
   const initializeFabric = () => {
     const newCanvas = new fabric.Canvas(canvasRef.current);
     setCanvas(newCanvas);
-    setShowImageBtnDisabled(true)
+    setShowImageBtnDisabled(true);
   };
 
   const handleImageUpload = () => {
@@ -92,8 +92,25 @@ const Home = () => {
       fabric.Image.fromURL(
         Image.selectedImage,
         (img) => {
-          img.scaleToWidth(canvas.width);
-          img.scaleToHeight(canvas.height);
+          const canvasWidth = canvas.getWidth();
+          const canvasHeight = canvas.getHeight();
+          const imgWidth = img.width;
+          const imgHeight = img.height;
+
+          const scale = Math.min(
+            canvasWidth / imgWidth,
+            canvasHeight / imgHeight
+          );
+          const left = (canvasWidth - imgWidth * scale) / 2;
+          const top = (canvasHeight - imgHeight * scale) / 2;
+
+          img.set({
+            left: left,
+            top: top,
+            scaleX: scale,
+            scaleY: scale,
+          });
+
           canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
         },
         {
@@ -103,9 +120,6 @@ const Home = () => {
     }
   }, [canvas, Image.selectedImage]);
 
-  const handleAddText = () => {
-    setTextElements([...textElements, "New Text"]);
-  };
   const canvasHeight = useBreakpointValue({ base: 300, md: 600 });
   const canvasWidth = useBreakpointValue({ base: 350, md: 800 });
 
@@ -126,12 +140,12 @@ const Home = () => {
               fontSize="4xl"
               mb={4}
               fontFamily="Helvetica"
-              p={10}
+              p={1}
             >
               Meme generator
             </Heading>
 
-            <Text noOfLines={2} fontFamily="Helvetica" p={10}>
+            <Text noOfLines={2} fontFamily="Helvetica" p={2}>
               Create a meme from JPG, PNG images. Edit your image and make a
               meme.
             </Text>
@@ -160,13 +174,15 @@ const Home = () => {
         <Box display="flex" flexDirection="column">
           {Image.selectedImage && !isMobile && (
             <Box
+              alignItems="center"
               id="img"
-              boxSize="auto"
+              height={700}
+              width={850}
               bg="white"
               alignContent="center"
               pt={20}
             >
-              <canvas ref={canvasRef} height={600} width={800}></canvas>
+              <canvas ref={canvasRef} height={600} width={850}></canvas>
             </Box>
           )}
           {Image.selectedImage && isMobile && (
@@ -207,22 +223,22 @@ const Home = () => {
           )}
         </Box>
 
-        {Image.selectedImage && !isMobile  && (
+        {Image.selectedImage && !isMobile && (
           <Flex justifyContent="center" mt={4}>
-          {!showImageBtnDisabled && 
-            <Button
-              colorScheme="teal"
-              fontFamily="Helvetica"
-              fontSize={["md", "2xl"]}
-              p={10}
-              borderRadius={19}
-              onClick={initializeFabric}
-              style={{ margin: "0 10px" }}
-              disabled={showImageBtnDisabled}
-            >
-              Show Image
-            </Button>
-          }
+            {!showImageBtnDisabled && (
+              <Button
+                colorScheme="teal"
+                fontFamily="Helvetica"
+                fontSize={["md", "2xl"]}
+                p={10}
+                borderRadius={19}
+                onClick={initializeFabric}
+                style={{ margin: "0 10px" }}
+                disabled={showImageBtnDisabled}
+              >
+                Show Image
+              </Button>
+            )}
             <Button
               colorScheme="teal"
               fontFamily="Helvetica"
@@ -250,20 +266,20 @@ const Home = () => {
 
         {Image.selectedImage && isMobile && (
           <VStack justifyContent="center" mt={4} spacing={4}>
-          {!showImageBtnDisabled && 
-            <Button
-              colorScheme="teal"
-              fontFamily="Helvetica"
-              fontSize={["md", "2xl"]}
-              p={10}
-              borderRadius={19}
-              onClick={initializeFabric}
-              style={{ margin: "0 10px" }}
-              disabled={showImageBtnDisabled}
-            >
-              Show Image
-            </Button>
-          }
+            {!showImageBtnDisabled && (
+              <Button
+                colorScheme="teal"
+                fontFamily="Helvetica"
+                fontSize={["md", "2xl"]}
+                p={10}
+                borderRadius={19}
+                onClick={initializeFabric}
+                style={{ margin: "0 10px" }}
+                disabled={showImageBtnDisabled}
+              >
+                Show Image
+              </Button>
+            )}
             <Button
               colorScheme="teal"
               fontFamily="Helvetica"
