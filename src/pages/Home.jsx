@@ -97,7 +97,7 @@ const Home = () => {
         const sendImageFile = async () => {
           try {
             setIsLoading(true);
-            const response = await axios.post(import.meta.env.VITE_REACT_APP_URL+'/save', formData,{
+            const response = await axios.post((import.meta.env.VITE_REACT_APP_URL)+'/save', formData,{
               withCredentials: true,
             }, {
               headers: {

@@ -13,7 +13,7 @@ export default function AuthRequired() {
     const checkAuthentication = async () => {
       console.log(process.env.REACT_APP_URL)
       try {
-        const response = await axios.post(import.meta.env.VITE_REACT_APP_URL + "/auth", null, {
+        const response = await axios.post((import.meta.env.VITE_REACT_APP_URL) + "/auth", null, {
           withCredentials: true,
         });
 

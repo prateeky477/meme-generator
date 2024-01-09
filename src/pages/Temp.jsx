@@ -28,7 +28,7 @@ const Template = () => {
   
     try {
       setIsLoading(true); // Set loading to true while uploading
-      const response = await axios.post(import.meta.env.VITE_REACT_APP_URL+'/upload-image', formData, {
+      const response = await axios.post((import.meta.env.VITE_REACT_APP_URL)+'/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

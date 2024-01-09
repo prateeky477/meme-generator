@@ -46,7 +46,7 @@ const Template = () => {
   useEffect(() => {
     const fetchTemp = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_REACT_APP_URL+"/temp", {
+        const response = await axios.get((import.meta.env.VITE_REACT_APP_URL)+"/temp", {
           withCredentials: true,
         });
 
@@ -83,7 +83,7 @@ const Template = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post(import.meta.env.VITE_REACT_APP_URLL+'/upload-image', formData, {
+      const response = await axios.post((import.meta.env.VITE_REACT_APP_URL)+'/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -35,7 +35,7 @@ const LogOut = () => {
 
     const handleLogout = async () => {
       try {
-        const response = await axios.post(import.meta.env.VITE_REACT_APP_URL+"/logout", null, {
+        const response = await axios.post((import.meta.env.VITE_REACT_APP_URL)+"/logout", null, {
           withCredentials: true,
         });
 
