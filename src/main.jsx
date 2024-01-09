@@ -7,8 +7,8 @@ import ColorProvider from './context/ColorContext.jsx'
 import AuthProvider from './context/AuthContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <AuthProvider>
   <ChakraProvider>
+  <AuthProvider>
     <ImgProvider>
         <ColorProvider>
           <React.StrictMode>
@@ -16,6 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           </React.StrictMode>
         </ColorProvider>
     </ImgProvider>
-  </ChakraProvider>
-  </AuthProvider>,
+  </AuthProvider>
+  </ChakraProvider>,
 )
