@@ -19,7 +19,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { ImgContext } from "../context/ImageContext";
+import { ImgContext } from "../context/imageContext";
 import { Navigate, useNavigate } from "react-router-dom";
 const Template = () => {
   const img = useContext(ImgContext);
@@ -46,7 +46,7 @@ const Template = () => {
   useEffect(() => {
     const fetchTemp = async () => {
       try {
-        const response = await axios.get(process.env.prod.REACT_APP_URL+"/temp", {
+        const response = await axios.get(import.meta.env.VITE_REACT_APP_URL+"/temp", {
           withCredentials: true,
         });
 
@@ -83,7 +83,7 @@ const Template = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post(process.env.prod.REACT_APP_URL+'/upload-image', formData, {
+      const response = await axios.post(import.meta.env.VITE_REACT_APP_URLL+'/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

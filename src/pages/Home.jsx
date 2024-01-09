@@ -10,13 +10,13 @@ import {
   FormLabel,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { ImgContext } from "../context/ImageContext";
 import { fabric } from "fabric";
 import html2canvas from "html2canvas";
 import { ColorContext } from "../context/ColorContext";
 import { useMediaQuery } from "@chakra-ui/react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ImgContext } from "../context/imageContext";
 
 const Home = () => {
   const [fileName, setFileName] = useState(null);
@@ -97,7 +97,7 @@ const Home = () => {
         const sendImageFile = async () => {
           try {
             setIsLoading(true);
-            const response = await axios.post(process.env.prod.REACT_APP_URL+'/save', formData,{
+            const response = await axios.post(import.meta.env.VITE_REACT_APP_URL+'/save', formData,{
               withCredentials: true,
             }, {
               headers: {
