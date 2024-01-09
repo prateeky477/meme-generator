@@ -13,7 +13,6 @@ import {
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import Cookies from 'js-cookie';
 
 const Login = () => {
   const navigate = useNavigate();
