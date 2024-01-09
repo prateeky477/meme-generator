@@ -1,6 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Outlet, Navigate, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
