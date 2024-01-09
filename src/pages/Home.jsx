@@ -10,7 +10,7 @@ import {
   FormLabel,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { ImgContext } from "../context/imageContext";
+import { ImgContext } from "../context/ImageContext";
 import { fabric } from "fabric";
 import html2canvas from "html2canvas";
 import { ColorContext } from "../context/ColorContext";
