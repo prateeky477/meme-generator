@@ -19,7 +19,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { ImgContext } from "../context/imageContext";
+import { ImgContext } from "../context/ImageContext";
 import { Navigate, useNavigate } from "react-router-dom";
 const Template = () => {
   const img = useContext(ImgContext);
