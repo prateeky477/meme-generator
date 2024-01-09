@@ -16,7 +16,7 @@ import { ColorContext } from "../context/ColorContext";
 import { useMediaQuery } from "@chakra-ui/react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { ImgContext } from "../context/imageContext";
+import { ImgContext } from "../context/ImageContext";
 
 const Home = () => {
   const [fileName, setFileName] = useState(null);
