@@ -15,6 +15,8 @@ import { fabric } from "fabric";
 import html2canvas from "html2canvas";
 import { ColorContext } from "../context/ColorContext";
 import { useMediaQuery } from "@chakra-ui/react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [fileName, setFileName] = useState(null);
@@ -27,6 +29,9 @@ const Home = () => {
   const imageContainerRef = useRef(null);
   const [isMobile] = useMediaQuery("(max-width: 600px)");
   const [showImageBtnDisabled, setShowImageBtnDisabled] = useState(false);
+  const [fileGenerated, setFileGenerted] = useState()
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const[ urll,setUrll]=useState("")
 
   const handleBlackChange = () => {
     Color.setIsBlack(!Color.isBlack);
@@ -71,26 +76,78 @@ const Home = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+    // console.log(file)
     setFileName(file.name);
     Image.setSelectedImage(URL.createObjectURL(file));
+    // console.log(Image.selectedImage)
   };
-
   const handleSave = async () => {
     const element = document.getElementById("img");
+    const formData = new FormData();
+  
     html2canvas(element).then((canvas) => {
+      // Convert the canvas to a Blob (image file)
+      canvas.toBlob((blob) => {
+        // Create a new File object from the Blob
+        const imageFile = new File([blob], 'image.png', { type: 'image/png' });
+  
+        // Append the image file to the FormData
+        formData.append('image', imageFile);
+  
+        const sendImageFile = async () => {
+          try {
+            setIsLoading(true);
+            const response = await axios.post(process.env.prod.REACT_APP_URL+'/save', formData,{
+              withCredentials: true,
+            }, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+              
+            });
+  
+            console.log('Image uploaded successfully:');
+          } catch (error) {
+            console.error('Error uploading image:', error);
+          } finally {
+            setIsLoading(false);
+          }
+        };
+  
+        sendImageFile();
+      }, 'image/png');
+    });
+  };
+  
+
+
+  const handleDownload = async () => {
+    const element = document.getElementById("img");
+    html2canvas(element).then((canvas) => {
+      const imageDataURL = canvas.toDataURL("image/png");
+
+      // Now you can use imageDataURL as needed
+      // console.log(imageDataURL);
+
+      // If you still want to trigger the download
       const link = document.createElement("a");
-      link.href = canvas
-        .toDataURL("image/png")
-        .replace("image/png", "image/octet-stream");
+      link.href = imageDataURL;
       link.download = `${fileName}_meme.png`;
       link.click();
     });
   };
 
   useEffect(() => {
+    if (Image.selectedImage.s3_url){
+    setUrll(Image.selectedImage.s3_url)
+    }
+    else{
+      setUrll(Image.selectedImage)
+    }
+    // console.log(Image.selectedImage)
     if (canvas && Image.selectedImage) {
       fabric.Image.fromURL(
-        Image.selectedImage,
+        urll,  
         (img) => {
           const canvasWidth = canvas.getWidth();
           const canvasHeight = canvas.getHeight();
@@ -168,6 +225,19 @@ const Home = () => {
               style={{ display: "none" }}
               onChange={handleFileChange}
             />
+            <Link to={'/template'}>
+            <Button
+              m={4}
+              colorScheme="linkedin"
+              fontFamily="Helvetica"
+              fontSize={["md", "2xl"]}
+              p={10}
+              borderRadius="lg"
+            >
+              Choose From Template
+              </Button>
+            </Link>
+            
           </>
         )}
 
@@ -249,6 +319,17 @@ const Home = () => {
               style={{ margin: "0 10px" }}
             >
               Add Text
+            </Button>
+            <Button
+              colorScheme="teal"
+              fontFamily="Helvetica"
+              fontSize={["md", "2xl"]}
+              p={10}
+              borderRadius={19}
+              onClick={handleDownload}
+              style={{ margin: "0 10px" }}
+            >
+              download Image
             </Button>
             <Button
               colorScheme="teal"

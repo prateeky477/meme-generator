@@ -1,7 +1,20 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import { AiFillGithub } from "react-icons/ai";
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
+import { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
+
 const Header = () => {
+  const [current_user, setCurrentUser] = useState();
+  const { isAuthenticated, setIsauthenticated } = useContext(AuthContext);
+
+  useEffect(() => {
+    const userEmail = localStorage.getItem("user");
+    const username = userEmail ? userEmail.split('@')[0].replace(/['"]/g, '') : '';
+    setCurrentUser(username);
+  }, [isAuthenticated]);
+  
   return (
     <Box
       position="fixed"
@@ -18,6 +31,9 @@ const Header = () => {
         paddingX={4}
         height={14}
       >
+        <Button as={Link} to="/saved" variant="ghost">
+          <Text>{current_user}</Text>
+        </Button>
         <Image src={logo} alt="Logo" height={12} borderRadius='full' />
         <a
           href="https://github.com/prateeky477/meme-generator"
