@@ -23,7 +23,7 @@ const SignUp = () => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                (import.meta.env.VITE_REACT_APP_URL)+"/signup",
+                "https://fastapi-meme.onrender.com/signup",
                 {
                     username: email,
                     password: password,

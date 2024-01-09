@@ -34,7 +34,7 @@ const Login = () => {
     setIsLoading(true);
   
     try {
-      const response = await axios.post((import.meta.env.VITE_REACT_APP_URL)+"/login", {
+      const response = await axios.post("https://fastapi-meme.onrender.com/login", {
         username: email,
         password: password,
       }, {

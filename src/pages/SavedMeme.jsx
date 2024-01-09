@@ -15,7 +15,7 @@ const SavedMeme = () => {
     const fetchSavedMeme = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get((import.meta.env.VITE_REACT_APP_URL)+"/saved", {
+        const response = await axios.get("https://fastapi-meme.onrender.com/saved", {
           withCredentials: true,
         });
 
@@ -40,7 +40,7 @@ const SavedMeme = () => {
   const handleDelete = async (imageId) => {
     try {
       // Make a request to delete the image with the given ID
-      await axios.delete((import.meta.env.VITE_REACT_APP_URL)+`/delete/${imageId}`, {
+      await axios.delete(`https://fastapi-meme.onrender.com/delete/${imageId}`, {
         withCredentials: true,
       });
 
