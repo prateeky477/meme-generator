@@ -83,7 +83,9 @@ const Template = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post('https://fastapi-meme.onrender.com/upload-image', formData, {
+      const response = await axios.post('https://fastapi-meme.onrender.com/upload-image', formData,{
+              withCredentials: true,
+            }, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
