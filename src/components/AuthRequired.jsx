@@ -11,9 +11,9 @@ export default function AuthRequired() {
 
   useEffect(() => {
     const checkAuthentication = async () => {
-      console.log(process.env.REACT_APP_URL)
+      // console.log(process.env.REACT_APP_URL)
       try {
-        const response = await axios.post("https://fastapi-meme.onrender.com/auth", null, {
+        const response = await axios.post("http://localhost:8000/auth", null, {
           withCredentials: true,
         });
 

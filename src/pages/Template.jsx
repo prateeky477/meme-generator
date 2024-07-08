@@ -46,7 +46,7 @@ const Template = () => {
   useEffect(() => {
     const fetchTemp = async () => {
       try {
-        const response = await axios.get("https://fastapi-meme.onrender.com/temp", {
+        const response = await axios.get("http://localhost:8000/temp", {
           withCredentials: true,
         });
 
@@ -56,6 +56,7 @@ const Template = () => {
 
         if (Array.isArray(temps)) {
           setImages(temps);
+          console.log(temps);
         } else {
           console.error("Invalid response format for images");
         }
@@ -83,7 +84,7 @@ const Template = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post('https://fastapi-meme.onrender.com/upload-image', formData, {
+      const response = await axios.post('http://localhost:8000/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -13,13 +13,15 @@ const SavedMeme = () => {
 
   useEffect(() => {
     const fetchSavedMeme = async () => {
+      console.log("first")
       try {
         setIsLoading(true);
-        const response = await axios.get("https://fastapi-meme.onrender.com/saved", {
+        const response = await axios.get("http://localhost:8000/saved", {
           withCredentials: true,
         });
 
-        // console.log(response.data);
+        console.log(response)
+        console.log(response.data);
 
         // Check if the response has the expected structure
         if (response.data) {
@@ -40,7 +42,7 @@ const SavedMeme = () => {
   const handleDelete = async (imageId) => {
     try {
       // Make a request to delete the image with the given ID
-      await axios.delete(`https://fastapi-meme.onrender.com/delete/${imageId}`, {
+      await axios.delete(`http://localhost:8000/delete/${imageId}`, {
         withCredentials: true,
       });
 

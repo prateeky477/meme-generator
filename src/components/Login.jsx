@@ -34,7 +34,7 @@ const Login = () => {
     setIsLoading(true);
   
     try {
-      const response = await axios.post("https://fastapi-meme.onrender.com/login", {
+      const response = await axios.post("http://localhost:8000/login", {
         username: email,
         password: password,
       }, {
@@ -65,7 +65,7 @@ const Login = () => {
   
 
   return (
-    <Box maxW="500px" mx="auto" mt="8">
+    <Box maxW="500px" mx="auto" mt={20} >
       <Text fontSize="4xl" textAlign="center" mb="8">
         Sign in your Account
       </Text>

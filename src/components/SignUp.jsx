@@ -23,7 +23,7 @@ const SignUp = () => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                "https://fastapi-meme.onrender.com/signup",
+                "http://localhost:8000/signup",
                 {
                     username: email,
                     password: password,
@@ -50,7 +50,7 @@ const SignUp = () => {
     };
 
     return (
-        <Box maxW="500px" mx="auto" mt="8">
+        <Box maxW="500px" mx="auto" mt={20}>
             <Text fontSize="4xl" textAlign="center" mb="8">
                 Register
             </Text>

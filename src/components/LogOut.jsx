@@ -35,7 +35,7 @@ const LogOut = () => {
 
     const handleLogout = async () => {
       try {
-        const response = await axios.post("https://fastapi-meme.onrender.com/logout", null, {
+        const response = await axios.post("http://localhost:8000/logout", null, {
           withCredentials: true,
         });
 
